@@ -3,6 +3,7 @@ package lk.ac.mrt.cse.dbs.simpleexpensemanager.database;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 public class DBHelper extends SQLiteOpenHelper {
     private final static int DB_VERSION = 1;
@@ -43,10 +44,23 @@ public class DBHelper extends SQLiteOpenHelper {
                 ");"
         );
 
+        sqLiteDatabase.execSQL("INSERT INTO " + DBConstant.EXPENSE_TYPE_TABLE_NAME + "(" +
+                DBConstant.EXPENSE_TYPE_NAME + ") VALUES (?);", new String[] {DBConstant.TYPE_OF_EXPENSE}
+        );
+
+        sqLiteDatabase.execSQL("INSERT INTO " + DBConstant.EXPENSE_TYPE_TABLE_NAME + "(" +
+                DBConstant.EXPENSE_TYPE_NAME + ") VALUES (?);", new String[] {DBConstant.TYPE_OF_INCOME}
+        );
     }
 
     @Override
-    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
+    public void onUpgrade(SQLiteDatabase sqLiteDatabase, int previousVersion, int newVersion) {
+        String msg = String.format("Upgrading the Database from %s to %s", Integer.toString(previousVersion), Integer.toString(newVersion));
+        Log.w(this.getClass().getName(), msg);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DBConstant.EXPENSE_TYPE_TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DBConstant.ACCOUNT_TABLE_NAME);
+        sqLiteDatabase.execSQL("DROP TABLE IF EXISTS " + DBConstant.TRANSACTION_TABLE_NAME);
+        onCreate(sqLiteDatabase);
 
     }
 }
