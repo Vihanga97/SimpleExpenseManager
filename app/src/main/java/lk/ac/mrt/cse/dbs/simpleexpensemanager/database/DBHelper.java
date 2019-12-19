@@ -26,7 +26,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 DBConstant.ACCOUNT_ACCOUNT_NUM + " VARCHAR PRIMARY KEY, " +
                 DBConstant.ACCOUNT_BANK_NAME + " VARCHAR NOT NULL, " +
                 DBConstant.ACCOUNT_HOLDER_NAME + " VARCHAR NOT NULL, " +
-                DBConstant.ACCOUNT_BALANCE + " DECIMAL(128,2) NOT NULL" +
+                DBConstant.ACCOUNT_BALANCE + " NUMERIC NOT NULL" +
                 ");"
         );
 
@@ -36,7 +36,7 @@ public class DBHelper extends SQLiteOpenHelper {
                 DBConstant.TRANSACTION_ACCOUNT_NUM + " VARCHAR NOT NULL, " +
                 DBConstant.TRANSACTION_TYPE + " VARCHAR NOT NULL, " +
                 DBConstant.TRANSACTION_DATE + " TIMESTAMP NOT NULL, " +
-                DBConstant.TRANSACTION_AMOUNT + " DECIMAL(128,2) NOT NULL, " +
+                DBConstant.TRANSACTION_AMOUNT + " NUMERIC NOT NULL, " +
                 " FOREIGN KEY (" + DBConstant.TRANSACTION_ACCOUNT_NUM + ") REFERENCES " +
                 DBConstant.ACCOUNT_TABLE_NAME + "(" + DBConstant.ACCOUNT_ACCOUNT_NUM + ")," +
                 " FOREIGN KEY (" + DBConstant.TRANSACTION_TYPE + ") REFERENCES " +
